@@ -1,7 +1,12 @@
+const { request } = require("express");
 const express = require("express");
+var cors = require("cors");
 
 const app = express(); //
 const port = 5000; // this port will be for node
+
+app.use(express.json());
+app.use(cors());
 
 app.listen(port, (req, res) => {
   console.log("listening to port : ", port);
@@ -29,3 +34,12 @@ app.get("/users", (req, res) => {
 // single one - dynamic api
 
 //post api
+app.post("/users", (req, res) => {
+  const newUser = req.body;
+  newUser.id = users.length + 1;
+  users.push(newUser);
+  console.log("hitting the post", req.body);
+  // res.send("post hitted");
+
+  res.json(newUser); //client side e as json object pathanor jonno
+});
